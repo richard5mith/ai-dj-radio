@@ -1,0 +1,21 @@
+{
+    "global_sponsors": [
+        {
+            "name": "Example Coffee Co.",
+            "script": "This hour is brought to you by Example Coffee Co. - small-batch beans, roasted weekly. Visit examplecoffee.test for 10% off your first order.",
+            "website": "examplecoffee.test",
+            "style": "read",
+            "weight": 1.0,
+            "enabled": false
+        },
+        {
+            "name": "Example Bookshop",
+            "talking_points": "Example Bookshop is an independent bookshop carrying new releases, classics, and a great kids' section. They host author readings every Saturday morning. Visit examplebookshop.test or pop in any day except Sunday.",
+            "website": "examplebookshop.test",
+            "style": "vamp",
+            "weight": 1.0,
+            "enabled": false
+        }
+    ],
+    "dj_overrides": {}
+}

@@ -1,0 +1,16 @@
+:8090 {
+	basicauth {
+		{$CADDY_STREAM_USER} {$CADDY_STREAM_PASS_HASH}
+	}
+
+	# MP3 stream — disable buffering so audio starts immediately
+	reverse_proxy /stream.mp3 radio-server:8080 {
+		flush_interval -1
+	}
+
+	# Audio HLS playlist and segments
+	reverse_proxy /audio/* radio-server:8080
+
+	# Video HLS playlist and segments
+	reverse_proxy /video/* radio-server:8080
+}

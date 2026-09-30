@@ -1,0 +1,38 @@
+{
+  "name": "evening_emma",
+  "voice_id": "shimmer",
+  "voice_provider": "openai",
+  "personality_prompt": "You are Evening Emma, an evening DJ playing the best of the 70s, 80s and whatever else takes your fancy. You are upbeat, fun and engaging.",
+  "tts_instructions": "You are a radio DJ. Speak with energy.",
+  "ident_jingles_folder": "evening",
+  "speech_files_folder": "evening_emma",
+  "announcement_frequency": 0.3,
+  "trivia_topics": [
+    "1970s music",
+    "travel destinations",
+    "land animals"
+  ],
+  "speech_speed": 1.2,
+  "talk_beds": {
+    "general_chat": [
+      "evening_emma_1.mp3",
+      "evening_emma_2.mp3"
+    ],
+    "trivia": [
+      "evening_emma_1.mp3",
+      "evening_emma_2.mp3"
+    ],
+    "listener_interaction": [
+      "evening_emma_1.mp3",
+      "evening_emma_2.mp3"
+    ],
+    "time": [
+      "evening_emma_1.mp3",
+      "evening_emma_2.mp3"
+    ],
+    "station_id": [
+      "evening_emma_1.mp3",
+      "evening_emma_2.mp3"
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+    "global_weights": {
+        "song_block_types": {
+            "intro_then_songs": 0.4,
+            "songs_then_outro": 0.3,
+            "individual_intros": 0.1,
+            "individual_outros": 0.1,
+            "silent_block": 0.1
+        },
+        "song_block_lengths": {
+            "1": 0.4,
+            "2": 0.4,
+            "3": 0.2
+        },
+        "song_selection_approaches": {
+            "random": 0.3,
+            "same_artist": 0.2,
+            "same_album": 0,
+            "same_genre": 0.15,
+            "same_year": 0.1,
+            "same_decade": 0.1
+        },
+        "dj_talk_types": {
+            "weather": 0.2,
+            "time": 0.2,
+            "general_chat": 0.1,
+            "trivia": 0.05,
+            "station_id": 0.4,
+            "news": 0.1,
+            "sponsor": 0.2,
+            "promo": 0.1,
+            "listener_interaction": 0.2
+        },
+        "talk_min_gap_minutes": {
+            "weather": 40,
+            "trivia": 30,
+            "news": 30
+        },
+        "stings": {
+            "enabled": true,
+            "chance": 0.5,
+            "cooldown_seconds": 90,
+            "default_duration_seconds": 8,
+            "allowed_prev_types": [
+                "dj_talk",
+                "song_block"
+            ],
+            "allowed_next_types": [
+                "dj_talk",
+                "song_block"
+            ],
+            "avoid_after_next_preview": true
+        },
+        "intro_styles": {
+            "brief": 0.3,
+            "fact_about_song": 0.25,
+            "artist_focus": 0.2,
+            "year_and_album": 0.15,
+            "generic": 0.1
+        },
+        "outro_styles": {
+            "brief": 0.3,
+            "next_preview": 0.2,
+            "artist_appreciation": 0.15,
+            "listener_connection": 0.1
+        },
+        "crossover": {
+            "dj_mixing": {
+                "over_song": 1,
+                "separate_from_song": 0
+            },
+            "song_transitions": {
+                "auto_crossfade": 1,
+                "hard_cut": 0
+            }
+        }
+    },
+    "dj_overrides": {}
+}

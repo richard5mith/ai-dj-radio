@@ -2,6 +2,23 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.DS_Store
+temp-audio/
+node_modules/
+music/
+beds/
+ads/
+!music/README.md
+jingles/
+!jingles/README.md
+radio-server/state/
+
+# Local station config — only the *.example.json templates are tracked.
+# setup.sh seeds the real config files from these on first run.
+config/*.json
+!config/*.example.json
+dj-configs/*.json
+!dj-configs/*.example.json
 
 # C extensions
 *.so
@@ -173,8 +190,8 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Cursor  
-#  Cursor is an AI-powered code editor.`.cursorignore` specifies files/directories to 
+# Cursor
+#  Cursor is an AI-powered code editor.`.cursorignore` specifies files/directories to
 #  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore

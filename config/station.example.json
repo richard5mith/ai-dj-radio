@@ -1,0 +1,10 @@
+{
+  "station_name": "My Radio",
+  "location": "London",
+  "timezone": "Europe/London",
+  "weather_location": "London,UK",
+  "ad_break_interval_minutes": 30,
+  "crossfade_duration_seconds": 3.0,
+  "stream_bitrate": 128,
+  "pronunciations": {}
+}

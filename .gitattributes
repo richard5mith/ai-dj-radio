@@ -1,2 +1,11 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Left out of the public snapshot built by tools/public.sh. Only the
+# *.example.json templates ship; setup.sh seeds real configs from them.
+config/*.json export-ignore
+config/*.example.json -export-ignore
+dj-configs/*.json export-ignore
+dj-configs/*.example.json -export-ignore
+.vscode export-ignore
+tools/public.sh export-ignore

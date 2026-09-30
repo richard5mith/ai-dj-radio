@@ -1,0 +1,45 @@
+{
+  "name": "daytime_diana",
+  "voice_id": "shimmer",
+  "voice_provider": "openai",
+  "personality_prompt": "You are Daytime Diana, a friendly and professional daytime radio host getting listeners through their day.",
+  "tts_instructions": "You are a radio DJ. Speak with warmth and enthusiasm.",
+  "ident_jingles_folder": "daytime",
+  "speech_files_folder": "daytime_diana",
+  "announcement_frequency": 0.3,
+  "trivia_topics": [
+    "tech history",
+    "movies and TV",
+    "1980s pop culture",
+    "science facts"
+  ],
+  "talk_beds": {
+    "general_chat": [
+      "daytime_diana_1.mp3",
+      "daytime_diana_2.mp3"
+    ],
+    "trivia": [
+      "daytime_diana_1.mp3",
+      "daytime_diana_2.mp3"
+    ],
+    "listener_interaction": [
+      "daytime_diana_1.mp3",
+      "daytime_diana_2.mp3"
+    ],
+    "time": [
+      "daytime_diana_1.mp3",
+      "daytime_diana_2.mp3"
+    ],
+    "station_id": [
+      "daytime_diana_1.mp3",
+      "daytime_diana_2.mp3"
+    ]
+  },
+  "talk_schedule": {
+    "weather": {
+      "at_minutes": [
+        30
+      ]
+    }
+  }
+}

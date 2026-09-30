@@ -1,0 +1,100 @@
+services:
+  radio-server:
+    build:
+      context: ./radio-server
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080" # Timeline API port
+    volumes:
+      - ./music:/app/music:ro
+      - ./config:/app/config:ro
+      - ./jingles:/app/jingles:ro
+      - ./beds:/app/beds:ro
+      - ./dj-configs:/app/dj-configs:ro
+      - ./radio-server/fonts:/app/fonts:ro
+      - ./temp-audio:/app/temp-audio
+      # Development: mount source code for live changes
+      - ./radio-server/src:/app/src
+      - ./radio-server/run.py:/app/run.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - WEATHER_API_KEY=${WEATHER_API_KEY}
+      - WEATHER_LOCATION=${WEATHER_LOCATION:-London,UK}
+      - TIMEZONE=${TIMEZONE:-UTC}
+      - TZ=${TIMEZONE:-UTC}
+      - VIDEO_HLS_SEGMENT_SECONDS=${VIDEO_HLS_SEGMENT_SECONDS:-2}
+      - VIDEO_HLS_TARGET_WINDOW_SECONDS=${VIDEO_HLS_TARGET_WINDOW_SECONDS:-120}
+      - VIDEO_HLS_LIST_SIZE=${VIDEO_HLS_LIST_SIZE:-}
+      - VIDEO_HLS_DELETE_THRESHOLD=${VIDEO_HLS_DELETE_THRESHOLD:-}
+      - VIDEO_OUTPUT_STALL_SECONDS=${VIDEO_OUTPUT_STALL_SECONDS:-}
+      - VIDEO_INLINE_BACKGROUND=${VIDEO_INLINE_BACKGROUND:-1}
+      - VIDEO_FPS=${VIDEO_FPS:-30}
+      - VIDEO_ENCODE_PRESET=${VIDEO_ENCODE_PRESET:-ultrafast}
+      - VIDEO_ENCODE_THREADS=${VIDEO_ENCODE_THREADS:-0}
+      - VIDEO_VIDEO_BITRATE=${VIDEO_VIDEO_BITRATE:-1500k}
+      - VIDEO_VIDEO_MAXRATE=${VIDEO_VIDEO_MAXRATE:-1650k}
+      - VIDEO_VIDEO_BUFSIZE=${VIDEO_VIDEO_BUFSIZE:-3000k}
+      - PCM_RELAY_SLOW_LOG_INTERVAL_SECONDS=${PCM_RELAY_SLOW_LOG_INTERVAL_SECONDS:-30}
+      - PCM_RELAY_MAX_SKIPPED_WRITES=${PCM_RELAY_MAX_SKIPPED_WRITES:-0}
+      - METADATA_CALLBACK_TIMEOUT_SECONDS=${METADATA_CALLBACK_TIMEOUT_SECONDS:-3}
+      - AUDIO_HLS_SEGMENT_SECONDS=${AUDIO_HLS_SEGMENT_SECONDS:-6}
+      - AUDIO_HLS_TARGET_WINDOW_SECONDS=${AUDIO_HLS_TARGET_WINDOW_SECONDS:-120}
+      - AUDIO_HLS_LIST_SIZE=${AUDIO_HLS_LIST_SIZE:-}
+      - AUDIO_HLS_DELETE_THRESHOLD=${AUDIO_HLS_DELETE_THRESHOLD:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - ai-dj-radio-network
+
+  web-interface:
+    build:
+      context: ./web-interface
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config:/app/config:ro
+      # Development: mount source code for live changes
+      - ./web-interface/server.js:/app/server.js
+      - ./web-interface/public:/app/public
+    environment:
+      # Optional: set RADIO_STREAM_URL in .env to override the playlist URL
+      # (e.g. a public CDN URL when deploying behind a reverse proxy).
+      # When empty, the web UI uses the playlist returned by the radio-server.
+      - RADIO_STREAM_URL=${RADIO_STREAM_URL:-}
+      - TIMEZONE=${TIMEZONE:-Europe/London}
+      - TZ=${TIMEZONE:-Europe/London}
+    restart: unless-stopped
+    depends_on:
+      - radio-server
+    networks:
+      - ai-dj-radio-network
+
+  # Optional password-protected stream proxy. Enable with COMPOSE_PROFILES=streams in .env.
+  caddy-streams:
+    image: caddy:2-alpine
+    profiles: ["streams"]
+    ports:
+      - "${CADDY_STREAMS_PORT:-8090}:8090"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    environment:
+      - CADDY_STREAM_USER=${CADDY_STREAM_USER}
+      - CADDY_STREAM_PASS_HASH=${CADDY_STREAM_PASS_HASH}
+    restart: unless-stopped
+    depends_on:
+      - radio-server
+    networks:
+      - ai-dj-radio-network
+
+networks:
+  ai-dj-radio-network:
+    driver: bridge
+    name: ai-dj-radio-network

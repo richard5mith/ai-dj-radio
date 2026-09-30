@@ -1,0 +1,32 @@
+# Docker stuff
+docker-compose.yml
+docker-compose-override.yml
+
+# Python stuff
+venv/
+.venv/
+**/__pycache__
+.pytest_cache/
+__pycache__/
+
+# Git stuff
+.git/
+.github/
+
+# Build stuff
+buildspec.yml
+buildspec-pr.yml
+buildspec-migration.yml
+buildspec-athenalambda.yml
+
+# Other
+.vscode/
+.env
+.envrc
+**/debug/
+env/
+**/geonames-*
+monit.log
+
+music/
+jingles/

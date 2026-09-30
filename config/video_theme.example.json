@@ -1,0 +1,118 @@
+{
+    "fonts": {
+        "artist": {
+            "path": "/app/fonts/Poppins-Bold.ttf",
+            "size": 36,
+            "color": "white",
+            "shadow_color": "0x000000BB",
+            "shadow_offset": {
+                "x": 3,
+                "y": 3
+            },
+            "box_color": "0x00000000",
+            "box_border": 10,
+            "x": 80,
+            "y": "h-250"
+        },
+        "song": {
+            "path": "/app/fonts/Poppins-Bold.ttf",
+            "size": 28,
+            "color": "white",
+            "shadow_color": "0x000000BB",
+            "shadow_offset": {
+                "x": 3,
+                "y": 3
+            },
+            "box_color": "0x00000000",
+            "box_border": 8,
+            "x": 80,
+            "y": "h-200"
+        },
+        "dj_name": {
+            "path": "/app/fonts/Poppins-Bold.ttf",
+            "size": 36,
+            "color": "white",
+            "shadow_color": "0x000000BB",
+            "shadow_offset": {
+                "x": 3,
+                "y": 3
+            },
+            "box_color": "0x00000000",
+            "box_border": 8,
+            "x": 80,
+            "y": 160
+        },
+        "clock": {
+            "path": "/app/fonts/Poppins-Bold.ttf",
+            "size": 30,
+            "color": "white",
+            "shadow_color": "0x000000BB",
+            "shadow_offset": {
+                "x": 3,
+                "y": 3
+            },
+            "box_color": "0x00000000",
+            "box_border": 8,
+            "x": 80,
+            "y": 120
+        },
+        "facts": {
+            "path": "/app/fonts/Poppins-Bold.ttf",
+            "size": 28,
+            "color": "white",
+            "shadow_color": "0x000000BB",
+            "shadow_offset": {
+                "x": 3,
+                "y": 3
+            },
+            "box_color": "0x00000000",
+            "box_border": 6,
+            "max_width": 668,
+            "max_lines": 6,
+            "x": 80,
+            "y_base": 220
+        }
+    },
+    "album_art": {
+        "enabled": true,
+        "size": 400,
+        "x": "W-w-80",
+        "y": "H-h-170"
+    },
+    "visualizer": {
+        "mode": "none",
+        "available_modes": [
+            "spectrum",
+            "vectorscope",
+            "nebula",
+            "grid",
+            "none"
+        ],
+        "spectrum": {
+            "display_mode": "combined",
+            "slide_mode": "scroll"
+        }
+    },
+    "waveform": {
+        "enabled": true,
+        "width": 1280,
+        "height": 600,
+        "x": "(W-w)/2",
+        "y": "H-400",
+        "mode": "line",
+        "colors": "cyan|blue|purple|pink"
+    },
+    "background_color": "#001e95",
+    "layout": {
+        "margins": {
+            "side": 80,
+            "top": 160,
+            "bottom": 80
+        },
+        "spacing": {
+            "main": 140,
+            "sub": 90
+        },
+        "max_text_width": 1060
+    }
+}

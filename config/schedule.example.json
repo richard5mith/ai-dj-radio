@@ -1,0 +1,47 @@
+{
+  "schedule": [
+    {
+      "start_time": "06:00",
+      "end_time": "10:00",
+      "dj_name": "morning_mike",
+      "music_folders": [
+        "mixed"
+      ]
+    },
+    {
+      "start_time": "10:00",
+      "end_time": "14:00",
+      "dj_name": "daytime_diana",
+      "music_folders": [
+        "80s"
+      ]
+    },
+    {
+      "start_time": "14:00",
+      "end_time": "18:00",
+      "dj_name": "afternoon_alex",
+      "music_folders": [
+        "90s",
+        "00s"
+      ]
+    },
+    {
+      "start_time": "18:00",
+      "end_time": "22:00",
+      "dj_name": "evening_emma",
+      "music_folders": [
+        "mixed",
+        "70s",
+        "80s"
+      ]
+    },
+    {
+      "start_time": "22:00",
+      "end_time": "06:00",
+      "dj_name": "night_nick",
+      "music_folders": [
+        "mixed"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+    "rss_feeds": [
+        {
+            "name": "Techmeme",
+            "url": "https://www.techmeme.com/feed.xml",
+            "enabled": true
+        }
+    ],
+    "update_interval_minutes": 60,
+    "max_headlines_per_feed": 10,
+    "headlines_to_provide": 5
+}

@@ -1,0 +1,112 @@
+{
+    "intro_styles": {
+        "brief": {
+            "prompt": "Give a very brief 1-2 sentence introduction. For single songs, mention the artist and song title. For multiple songs, you can reference the theme (same artist, album, year, or genre) if provided. Don't talk about or introduce yourself.",
+            "max_words": 20
+        },
+        "fact_about_song": {
+            "prompt": "Share an interesting fact about the song(s) - could be about when it was written, the inspiration, chart performance, or recording details. For multiple songs from the same artist/album/year, you can reference that connection. Keep it engaging but concise. Don't talk about or introduce yourself.",
+            "max_words": 35
+        },
+        "artist_focus": {
+            "prompt": "Introduce by talking about the artist - their style, career highlights, or what makes them special. Then naturally transition to the song(s). For multiple songs, you can mention the connection between them. Don't talk about or introduce yourself.",
+            "max_words": 40
+        },
+        "year_and_album": {
+            "prompt": "Mention when the song(s) came out and what album they're from. Add some context about that time period or the album if relevant. For multiple songs from the same year/decade, reference that theme. Don't talk about or introduce yourself.",
+            "max_words": 30
+        },
+        "generic": {
+            "prompt": "Don't mention the name or artist of the song. Just give a general, upbeat intro to get listeners excited about the song you're about to play. Don't talk about or introduce yourself.",
+            "max_words": 30
+        }
+    },
+    "outro_styles": {
+        "brief": {
+            "prompt": "Give a very brief comment about what just played. For single songs, mention artist and title with a short positive remark. For multiple songs, you can list them or reference their common theme. Don't talk about or introduce yourself.",
+            "max_words": 20
+        },
+        "next_preview": {
+            "prompt": "Briefly comment on what just played (if multiple songs, you can reference their theme or list them), then talk about what artists are coming up next. Don't talk about or introduce yourself.",
+            "max_words": 35
+        },
+        "artist_appreciation": {
+            "prompt": "Talk about the artist(s) whose song(s) just played - their talent, contribution to music, or lasting impact. For multiple songs from the same artist, you can highlight their range or consistency. Don't talk about or introduce yourself.",
+            "max_words": 30
+        },
+        "listener_connection": {
+            "prompt": "Connect what just played to the listeners - ask if they remember it, share why people love it, or relate it to common experiences. For multiple songs with a theme, reference what connects them. Don't talk about or introduce yourself.",
+            "max_words": 35
+        }
+    },
+    "dj_talk_types": {
+        "weather": {
+            "prompt": "Give a brief weather update for {location}. Current conditions: {weather}. Make it conversational and relevant to the time of day. Don't talk about or introduce yourself.",
+            "max_words": 50,
+            "bed": [
+                "weather_bed_1.mp3",
+                "weather_bed_2.mp3",
+                "weather_bed_3.mp3"
+            ],
+            "bed_volume": 0.25
+        },
+        "time": {
+            "prompt": "Mention the time in a natural, conversational way. You can relate it to the time of day, what people might be doing on this day, or upcoming events. No clichés. Don't talk about or introduce yourself.",
+            "max_words": 40
+        },
+        "general_chat": {
+            "prompt": "Have a brief, engaging chat with listeners asking what they're up to today, something relevant to the current day or date, upcoming holidays or events in your location. Don't introduce yourself.",
+            "max_words": 100
+        },
+        "trivia": {
+            "prompt": "Share an interesting fact for listeners. If trivia topics are provided, pick one and focus the fact there. Otherwise use general knowledge or something that happened on this day in history. Keep it educational and interesting. Don't talk about or introduce yourself.\n\nTrivia Topics (if any): {trivia_topics}",
+            "max_words": 100
+        },
+        "station_id": {
+            "prompt": "Briefly identify yourself and the station. Mention you're {dj_name} on {station_name} for station branding. Mention the day, date, and time.",
+            "max_words": 15
+        },
+        "news": {
+            "prompt": "Give the time of day and then share news headlines with listeners. You'll be provided with recent headlines from news sources below. Pick 1-3 of the most interesting ones and present them in a conversational, engaging way. Start by mentioning the current time, then naturally transition into the news.  Don't talk about or introduce yourself. Add some personality to how you read the headlines.\n\nHeadlines:\n{news_headlines}",
+            "max_words": 120,
+            "bed": "news_bed_1.mp3",
+            "bed_volume": 0.25
+        },
+        "promo": {
+            "prompt": "Create a short, upbeat station promo for {station_name}. If you know what's coming up next, tease it. Keep it punchy and on-brand. Don't talk about or introduce yourself.",
+            "max_words": 35
+        },
+        "listener_interaction": {
+            "prompt": "A listener just sent a short message. Comment on what they're doing in a fun way, then respond in a friendly, conversational way. Encourage others to reach out or tune in. Don't talk about or introduce yourself.\n\nListener details:\nName: {listener_name}\nLocation: {listener_location}\nActivity: {listener_verb} {listener_object}.",
+            "max_words": 50
+        },
+        "sponsor_read": {
+            "prompt": "Read the following sponsor message EXACTLY as written. Do not add extra words, commentary, or personality - just deliver the script professionally and clearly. Do not mention word limits.\n\nSponsor: {sponsor_name}\nScript: {sponsor_script}",
+            "max_words": 100,
+            "bed": [
+                "sponsor_bed_1.mp3",
+                "sponsor_bed_2.mp3"
+            ],
+            "bed_volume": 0.25
+        },
+        "sponsor_vamp": {
+            "prompt": "Talk about our sponsor {sponsor_name} in your own conversational style. Use the talking points below as a guide, but make it natural and engaging with your personality. Mention their website {sponsor_website} if you want.\n\nTalking Points:\n{sponsor_talking_points}",
+            "max_words": 80,
+            "bed": [
+                "sponsor_bed_1.mp3",
+                "sponsor_bed_2.mp3"
+            ],
+            "bed_volume": 0.25
+        }
+    },
+    "show_transitions": {
+        "show_start": {
+            "prompt": "Welcome listeners to your show! You're {dj_name} taking over on {station_name}. It's {current_time} and you're here to keep the music flowing. Be warm, introduce yourself briefly, and set the mood for your show.",
+            "max_words": 35
+        },
+        "show_end": {
+            "prompt": "You're {dj_name} and you're ending your show and handing over to {next_dj_name}. Thank listeners for tuning in, sign off with your name, introduce {next_dj_name}, and mention that {station_name} continues. Be warm but brief - keep the energy going for the transition.",
+            "max_words": 30
+        }
+    }
+}

@@ -1,0 +1,95 @@
+{
+    "jingles": [
+        {
+            "id": "weather_intro_1",
+            "name": "Weather Intro Jingle 1",
+            "file": "weather_intro_1.mp3",
+            "talk_types": [
+                "weather"
+            ],
+            "position": "before",
+            "allowed_djs": [
+                "all"
+            ],
+            "weight": 1
+        },
+        {
+            "id": "weather_intro_2",
+            "name": "Weather Intro Jingle 2",
+            "file": "weather_intro_2.mp3",
+            "talk_types": [
+                "weather"
+            ],
+            "position": "before",
+            "allowed_djs": [
+                "all"
+            ],
+            "weight": 1
+        },
+        {
+            "id": "weather_intro_3",
+            "name": "Weather Intro Jingle 3",
+            "file": "weather_intro_3.mp3",
+            "talk_types": [
+                "weather"
+            ],
+            "position": "before",
+            "allowed_djs": [
+                "all"
+            ],
+            "weight": 1
+        },
+        {
+            "id": "weather_intro_5",
+            "name": "Weather Intro Jingle 5",
+            "file": "weather_intro_5.mp3",
+            "talk_types": [
+                "weather"
+            ],
+            "position": "before",
+            "allowed_djs": [
+                "all"
+            ],
+            "weight": 1
+        },
+        {
+            "id": "weather_intro_6",
+            "name": "Weather Intro Jingle 6",
+            "file": "weather_intro_6.mp3",
+            "talk_types": [
+                "weather"
+            ],
+            "position": "before",
+            "allowed_djs": [
+                "all"
+            ],
+            "weight": 1
+        },
+        {
+            "id": "weather_intro_7",
+            "name": "Weather Intro Jingle 7",
+            "file": "weather_intro_7.mp3",
+            "talk_types": [
+                "weather"
+            ],
+            "position": "before",
+            "allowed_djs": [
+                "all"
+            ],
+            "weight": 1
+        },
+        {
+            "id": "weather_intro_4",
+            "name": "Weather Intro Jingle 4",
+            "file": "weather_intro_4.mp3",
+            "talk_types": [
+                "weather"
+            ],
+            "position": "before",
+            "allowed_djs": [
+                "all"
+            ],
+            "weight": 1
+        }
+    ]
+}
