@@ -2,8 +2,12 @@ import asyncio
 import base64
 import json
 import logging
+import math
 import os
+import random
 import time
+from datetime import UTC, datetime
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from uuid import uuid4
 
@@ -26,6 +30,9 @@ class DJAI:
         self.scheduler = scheduler
         self.config_manager = config_manager
         self.weather_service = weather_service
+        self._gemini_lock = asyncio.Lock()
+        self._gemini_retry_at = 0.0
+        self._gemini_rate_limit_count = 0
 
         # Initialize unified generator (will be set up after dependencies are available)
         self.unified_generator = None
@@ -292,6 +299,111 @@ class DJAI:
             logger.error(f"❌ ELEVENLABS SPEECH GENERATION ERROR: {e}")
             return None
 
+    async def _gemini_retry_delay(self, response: aiohttp.ClientResponse) -> float:
+        """Read rate-limit hints, falling back to exponential backoff with jitter.
+
+        Args:
+            response: Gemini's rate-limited HTTP response.
+
+        Returns:
+            Seconds to wait, never shorter than a valid server hint.
+        """
+        delays = [min(15 * 2 ** min(self._gemini_rate_limit_count, 5), 300)]
+        header = response.headers.get("Retry-After")
+        if header:
+            try:
+                delay = float(header)
+            except (TypeError, ValueError):
+                try:
+                    date = parsedate_to_datetime(header)
+                    delay = (date - datetime.now(UTC)).total_seconds()
+                except (TypeError, ValueError, OverflowError):
+                    delay = 0.0
+            if math.isfinite(delay):
+                delays.append(delay)
+        try:
+            body = await response.json()
+        except (ValueError, aiohttp.ContentTypeError):
+            body = {}
+        error = body.get("error", {}) if isinstance(body, dict) else {}
+        details = error.get("details", []) if isinstance(error, dict) else []
+        for detail in details if isinstance(details, list) else []:
+            if not isinstance(detail, dict) or detail.get("@type") != (
+                "type.googleapis.com/google.rpc.RetryInfo"
+            ):
+                continue
+            hint = detail.get("retryDelay")
+            if isinstance(hint, str) and hint.endswith("s"):
+                try:
+                    delay = float(hint[:-1])
+                except ValueError:
+                    continue
+                if math.isfinite(delay):
+                    delays.append(delay)
+        return max(delays) + random.uniform(0, 1)
+
+    async def _request_gemini_speech(self, api_key: str, payload: dict) -> dict | None:
+        """Serialize Gemini calls and retry 429s within a total two-minute budget.
+
+        Args:
+            api_key: Gemini credential.
+            payload: Speech generation request.
+
+        Returns:
+            Response JSON, or None when unavailable or retries are exhausted.
+        """
+        # The station shares one DJAI across DJs. Keep its cooldown even when a
+        # caller runs out of retries, times out, or is cancelled by the scheduler.
+        deadline = time.monotonic() + 120
+        try:
+            async with (
+                asyncio.timeout(120),
+                self._gemini_lock,
+                aiohttp.ClientSession(
+                    timeout=aiohttp.ClientTimeout(total=120)
+                ) as session,
+            ):
+                for attempt in range(3):
+                    delay = max(0.0, self._gemini_retry_at - time.monotonic())
+                    if time.monotonic() + delay >= deadline:
+                        logger.warning(
+                            "Gemini TTS cooldown exceeds request budget; "
+                            "try again in %.1fs",
+                            delay,
+                        )
+                        return None
+                    if delay:
+                        await asyncio.sleep(delay)
+                    async with session.post(
+                        "https://generativelanguage.googleapis.com/v1beta/models/"
+                        "gemini-3.8-flash-tts:generateContent",
+                        headers={"x-goog-api-key": api_key},
+                        json=payload,
+                    ) as response:
+                        if response.status == 429:
+                            delay = await self._gemini_retry_delay(response)
+                            self._gemini_rate_limit_count += 1
+                            self._gemini_retry_at = time.monotonic() + delay
+                            logger.warning(
+                                "Gemini TTS rate limited (attempt %s/3); "
+                                "shared cooldown %.1fs",
+                                attempt + 1,
+                                delay,
+                            )
+                            continue
+                        if response.status != 200:
+                            logger.error(
+                                "Gemini TTS failed (status %s)", response.status
+                            )
+                            return None
+                        self._gemini_rate_limit_count = 0
+                        self._gemini_retry_at = 0.0
+                        return await response.json()
+                logger.warning("Gemini TTS rate-limit retries exhausted")
+        except TimeoutError:
+            logger.warning("Gemini TTS exceeded its 120s request budget")
+        return None
+
     async def _generate_speech_gemini(
         self,
         text: str,
@@ -334,21 +446,9 @@ class DJAI:
             },
         }
         try:
-            async with (
-                aiohttp.ClientSession(
-                    timeout=aiohttp.ClientTimeout(total=120)
-                ) as session,
-                session.post(
-                    "https://generativelanguage.googleapis.com/v1beta/models/"
-                    "gemini-3.8-flash-tts:generateContent",
-                    headers={"x-goog-api-key": api_key},
-                    json=payload,
-                ) as response,
-            ):
-                if response.status != 200:
-                    logger.error("Gemini TTS failed (status %s)", response.status)
-                    return None
-                result = await response.json()
+            result = await self._request_gemini_speech(api_key, payload)
+            if result is None:
+                return None
 
             # Use one candidate only; alternatives must never be spoken together.
             candidates = result.get("candidates") or []
